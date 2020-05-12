@@ -14,8 +14,25 @@ class App extends React.Component {
   abortController = new AbortController();
   controllerSignal = this.abortController.signal;
 
-  getWeatherData = () => {
-    const weatherApi = `http://api.openweathermap.org/data/2.5/weather?q=London&units=metric&appid=${process.env.REACT_APP_WEATHER_KEY}`;
+  weatherInit = () => {
+    const success = (position) => {
+      this.getWeatherData(position.coords.latitude, position.coords.longitude);
+    };
+
+    const error = () => {
+      alert("Unable to retrieve location.");
+    };
+
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(success, error);
+    } else {
+      alert(
+        "Your browser does not support location tracking, or permission is denied."
+      );
+    }
+  };
+  getWeatherData = (lat, lon) => {
+    const weatherApi = `http://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&units=metric&appid=${process.env.REACT_APP_WEATHER_KEY}`;
 
     fetch(weatherApi, { signal: this.controllerSignal })
       .then((response) => response.json())
@@ -62,7 +79,7 @@ class App extends React.Component {
   };
 
   componentDidMount() {
-    this.getWeatherData();
+    this.weatherInit();
   }
 
   componentWillUnmount() {

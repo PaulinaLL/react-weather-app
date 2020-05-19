@@ -1,7 +1,7 @@
 ## Weather App
 - a realtime weather application built in React using the Fetch API and geolocation as accessed through the Navigator interface
 - using data sources called Open Weather
--display information like temperature, location, humidity, wind speed and direction
+- display information like temperature, location, humidity, wind speed and direction
 
 ![weather-app](weatherApp.jpeg)
 

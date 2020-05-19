@@ -1,7 +1,7 @@
 import React from "react";
 import "./App.scss";
 import { WeatherData } from "./Components/WeatherData";
-
+import { StatusData } from "./Components/StatusData";
 class App extends React.Component {
   constructor(props) {
     super(props);
@@ -17,16 +17,20 @@ class App extends React.Component {
 
   weatherInit = () => {
     const success = (position) => {
+      this.setState({ status: "fetching" });
       this.getWeatherData(position.coords.latitude, position.coords.longitude);
     };
 
     const error = () => {
+      this.setState({ status: "unable" });
       alert("Unable to retrieve location.");
     };
 
     if (navigator.geolocation) {
+      this.setState({ status: "fetching" });
       navigator.geolocation.getCurrentPosition(success, error);
     } else {
+      this.setState({ status: "unsupported" });
       alert(
         "Your browser does not support location tracking, or permission is denied."
       );
@@ -54,6 +58,7 @@ class App extends React.Component {
           const { speed, deg } = result.wind;
 
           this.setState({
+            status: "success",
             isLoaded: true,
             weatherData: {
               name,
@@ -80,18 +85,37 @@ class App extends React.Component {
   };
 
   componentDidMount() {
-    this.weatherInit();
+    // this.weatherInit();
   }
 
   componentWillUnmount() {
     this.abortController.abort();
   }
 
+  onClick = () => {
+    this.weatherInit();
+  };
+
+  returnActiveView = (status) => {
+    switch (status) {
+      case "init":
+        return (
+          <button className="btn-main" onClick={this.onClick}>
+            Get My Location
+          </button>
+        );
+      case "success":
+        return <WeatherData data={this.state.weatherData} />;
+      default:
+        return <StatusData status={status} />;
+    }
+  };
+
   render() {
     return (
       <div className="App">
         <div className="container">
-          <WeatherData data={this.state.weatherData} />
+          {this.returnActiveView(this.state.status)}
         </div>
       </div>
     );

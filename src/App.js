@@ -1,5 +1,6 @@
 import React from "react";
 import "./App.scss";
+import { WeatherData } from "./Components/WeatherData";
 
 class App extends React.Component {
   constructor(props) {
@@ -89,7 +90,9 @@ class App extends React.Component {
   render() {
     return (
       <div className="App">
-        <main></main>
+        <div className="container">
+          <WeatherData />
+        </div>
       </div>
     );
   }

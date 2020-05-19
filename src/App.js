@@ -91,7 +91,7 @@ class App extends React.Component {
     return (
       <div className="App">
         <div className="container">
-          <WeatherData />
+          <WeatherData data={this.state.weatherData} />
         </div>
       </div>
     );

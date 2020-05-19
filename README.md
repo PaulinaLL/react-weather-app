@@ -1,3 +1,10 @@
+## Weather App
+- a realtime weather application built in React using the Fetch API and geolocation as accessed through the Navigator interface
+- using data sources called Open Weather
+-display information like temperature, location, humidity, wind speed and direction
+
+![weather-app](weatherApp.jpeg)
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
@@ -26,3 +33,6 @@ The build is minified and the filenames include the hashes.<br />
 Your app is ready to be deployed!
 
 See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+
+### Credits
+@evan-kapantais
